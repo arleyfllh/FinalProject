@@ -18,11 +18,11 @@
 			<div class="col-md-3 mt-4">
 				<a class="upvote">
 					<i class="fa fa-thumbs-o-up"></i>
-					<input type="integer" name="upvote" value="0">
+					
 				</a>
 				<a class="downvote">
 					<i class="fa fa-thumbs-o-down"></i>
-					<input type="integer" name="downvote" value="0">
+					
 				</a>
 			</div>
 			<div class="col-md-6">
@@ -39,7 +39,7 @@
 						<a href="/question/{{$question->id}}/edit" class="btn btn-success">
 							Edit
 						</a>
-						<form action="/question/{{$item->id}}" method="POST">
+						<form action="/question/{{$question->id}}" method="POST">
         		@csrf
         		@method('DELETE')
 	        		<button type="submit" class="btn btn-danger" > <i class="fas fa-trash"></i> </button>

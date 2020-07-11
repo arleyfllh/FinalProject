@@ -44,23 +44,33 @@ class QuestionController extends Controller
         'title'=>'required',
         'description'=>'required'
       ]);
+      
+      $request->all();
+      $request["user_id"] = Auth::user()->id;
+      
+      $questions = Question::create([
+        "title"=>$request["title"],
+        "description"=>$request["description"],
+        "user_id"=>$request["user_id"],
+      ]);
 
-      $data = $request->all();
-      $data["user_id"] = Auth::user()->id;
-      dd($data);
-      $questions = Question::create($data);
-      // dd($questions);
-      $tagsArr = explode(',',$data->tags);
+      
+      $tagsArr = explode(',',$request->tags);
+      
       $tagsMulti = [];
       foreach($tagsArr as $strTag){
         $tagsArrAssc["name"] = $strTag;
         $tagsMulti[] = $tagsArrAssc;
       }
+      
       foreach($tagsMulti as $tagsCheck){
         $tags = Tag::firstOrCreate($tagsCheck);
-        $data->tags()->attach($tags->id);
+        $questions->tag()->attach($tags->id);
       }
-      dd($questions);
+
+      
+
+      // dd($data);
       return redirect('/question');
     }
 
