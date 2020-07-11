@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tag extends Model
 {
-	protected $fillable = ['title'];
+	protected $guarded = [];
 
 	public function question(){
 		return $this->hasMany('App\Question');

@@ -17,10 +17,17 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
 Route::group(['middleware'=>'auth'],function(){
+	Route::get('dashboard',function(){
+		return view('welcomeuser');
+	})->name('dashboard');
 	Route::resource('question','QuestionController');
-Route::resource('answer','AnswerController');
-Route::resource('tag','TagController');
+	Route::resource('answer','AnswerController');
+	Route::resource('tag','TagController');
+	Route::get('/master',function(){
+	return view('master');
+});
 });
 
 

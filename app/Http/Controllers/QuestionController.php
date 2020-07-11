@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Question;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -16,7 +17,8 @@ class QuestionController extends Controller
     public function index()
     {
       $questions = Question::all();
-      return view('question.index',compact($question));
+      $users = Auth::user();
+      return view('question.index',compact('questions','users'));
     }
 
     /**
@@ -38,7 +40,27 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
+      $this->validate($request,[
+        'title'=>'required',
+        'description'=>'required'
+      ]);
 
+      $data = $request->all();
+      $data["user_id"] = Auth::user()->id;
+      dd($data);
+      $questions = Question::create($data);
+      // dd($questions);
+      $tagsArr = explode(',',$data->tags);
+      $tagsMulti = [];
+      foreach($tagsArr as $strTag){
+        $tagsArrAssc["name"] = $strTag;
+        $tagsMulti[] = $tagsArrAssc;
+      }
+      foreach($tagsMulti as $tagsCheck){
+        $tags = Tag::firstOrCreate($tagsCheck);
+        $data->tags()->attach($tags->id);
+      }
+      dd($questions);
       return redirect('/question');
     }
 
@@ -63,7 +85,13 @@ class QuestionController extends Controller
      */
     public function edit($id)
     {
-      $questions = 
+      $questions = Question::find($id);
+      $users = Auth::user();
+      $tags = Tag::all();
+
+      if($users->id === $questions->user_id){
+        return view('question.edit',compact('questions','tags'));
+      }
     }
 
     /**
@@ -75,7 +103,14 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $this->validate($request,[
+        'title'=>'required',
+        'description'=>'required'
+      ]);
+      $data = $request->all();
+      $questions = Question::find($id)->update($data);
+
+      return redirect('/question');
     }
 
     /**
@@ -86,6 +121,8 @@ class QuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Question::find($id)->delete();
+
+      return redirect('/question');
     }
 }

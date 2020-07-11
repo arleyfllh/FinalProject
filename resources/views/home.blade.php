@@ -16,6 +16,10 @@
 
                     You are logged in!
                 </div>
+
+                <div class="card-footer"> 
+                    <strong><a href="/master">Click Here!</a></strong>
+                </div>
             </div>
         </div>
     </div>
