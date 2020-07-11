@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AnswerController extends Controller
 {
@@ -34,7 +35,15 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-      
+      $this->validate($request,[
+        'description'=>'required'
+      ]);
+
+      $data=$request->all();
+      $data["user_id"]=Auth::user()->id;
+
+      Answer::create($data);
+      return back();
     }
 
     /**
