@@ -22,14 +22,12 @@ Route::group(['middleware'=>'auth'],function(){
 	Route::get('dashboard',function(){
 		return view('welcomeuser');
 	})->name('dashboard');
-	Route::resource('question','QuestionController');
+	Route::resource('question','QuestionController',['except'=>['index','show']]);
 	Route::resource('answer','AnswerController');
 	Route::resource('tag','TagController');
-	Route::get('/master',function(){
-	return view('master');
-});
 });
 
-
+Route::get('/question','QuestionController@index')->name('question.index');
+Route::get('/question/{question}','QuestionController@show')->name('question.show');
 
 Route::get('/home', 'HomeController@index')->name('home');

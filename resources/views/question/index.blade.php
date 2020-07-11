@@ -14,7 +14,7 @@
 
 <div class="container">
 	@foreach($questions as $question)
-		<div class="row m-2 p-2 bg-white" style="border: 1px solid black;">
+		<div class="row m-2 p-2 bg-white elevation-3" >
 			<div class="col-md-1" style="text-align: center;">
 				<div class="mt-3">
 					<button class="btn btn-success mb-2"><i class="far fa-thumbs-up"></i></button>

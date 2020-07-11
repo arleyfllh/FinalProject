@@ -41,7 +41,7 @@ class AnswerController extends Controller
 
       $data=$request->all();
       $data["user_id"]=Auth::user()->id;
-
+      dd($data);
       Answer::create($data);
       return back();
     }

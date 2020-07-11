@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Question;
 use App\Tag;
+use App\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -83,8 +84,9 @@ class QuestionController extends Controller
     public function show($id)
     {
       $questions = Question::find($id);
-      $tags = Tag::all();
-      return view('question.show',compact('questions','tags'));
+      $answers = Answer::find($id);
+      
+      return view('question.show',compact('questions','answers'));
     }
 
     /**
@@ -97,10 +99,10 @@ class QuestionController extends Controller
     {
       $questions = Question::find($id);
       $users = Auth::user();
-      $tags = Tag::all();
+      
 
       if($users->id === $questions->user_id){
-        return view('question.edit',compact('questions','tags'));
+        return view('question.edit',compact('questions'));
       }
     }
 

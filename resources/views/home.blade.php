@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="card-footer"> 
-                    <strong><a href="/master">Click Here!</a></strong>
+                    <strong><a href="/question">Click Here!</a></strong>
                 </div>
             </div>
         </div>

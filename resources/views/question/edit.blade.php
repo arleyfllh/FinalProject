@@ -19,7 +19,7 @@
 @endif
 
 <div class="m-3">
-	<form action="/question" method="POST">
+	<form action="/question/{{$questions->id}}" method="POST">
 		@csrf
     @method('PUT')
 		<div class="form-group">
@@ -29,10 +29,6 @@
 		<div class="form-group">
 			<label for="description">Question</label>
   		<textarea name="description" class="form-control my-editor" value=" {{$questions->description}} ">{!! old('description', $description ?? '') !!}</textarea>
-		</div>
-		<div class="form-group">
-			<label for="tags">Tags</label>
-  		<input type="text" class="form-control" name="tags" placeholder="tags" id="tags">
 		</div>
 		<button class="btn btn-primary">Update</button>
 	</form>
