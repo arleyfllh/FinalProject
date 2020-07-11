@@ -14,38 +14,38 @@
 
 <div class="container">
 	@foreach($questions as $question)
-		<div class="row">
-			<div class="col-md-3 mt-4">
-				<a class="upvote">
-					<i class="fa fa-thumbs-o-up"></i>
-					
-				</a>
-				<a class="downvote">
-					<i class="fa fa-thumbs-o-down"></i>
-					
-				</a>
+		<div class="row m-2 p-2 bg-white" style="border: 1px solid black;">
+			<div class="col-md-1" style="text-align: center;">
+				<div class="mt-3">
+					<button class="btn btn-success mb-2"><i class="far fa-thumbs-up"></i></button>
+					<button class="btn btn-danger"><i class="far fa-thumbs-down"></i></button>
+				</div>
+				
 			</div>
-			<div class="col-md-6">
-				<h5> {{$question->user->name}} </h5>
+			<div class="col-md mt-2">
+				<h6> {{$question->user->name}} </h6>
 				<h4> {{$question->title}} </h4>
 				<p> {!! $question->description !!} </p>
 			</div>
-			<div class="col-md-3">
-				<div class="btn-group">
-					<a href="/question/{{$question->id}}" class="btn btn-primary">
-						Comment
-					</a>
-					@if ($question->user_id == Auth::id())
-						<a href="/question/{{$question->id}}/edit" class="btn btn-success">
-							Edit
+			<div class="col-md-3" style="text-align: center;">
+				<div class="mt-3">
+					<div class="btn-group mt-4">
+						<a href="/question/{{$question->id}}" class="btn btn-primary">
+							Comment
 						</a>
-						<form action="/question/{{$question->id}}" method="POST">
-        		@csrf
-        		@method('DELETE')
-	        		<button type="submit" class="btn btn-danger" > <i class="fas fa-trash"></i> </button>
-	        	</form>
-					@endif
+						@if ($question->user_id == Auth::id())
+							<a href="/question/{{$question->id}}/edit" class="btn btn-success">
+								Edit
+							</a>
+							<form action="/question/{{$question->id}}" method="POST">
+	        		@csrf
+	        		@method('DELETE')
+		        		<button type="submit" class="btn btn-danger" > <i class="fas fa-trash"></i> </button>
+		        	</form>
+						@endif
+					</div>
 				</div>
+				
 			</div>
 		</div>
 	@endforeach
