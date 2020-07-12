@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,7 +42,7 @@ class AnswerController extends Controller
 
       $data=$request->all();
       $data["user_id"]=Auth::user()->id;
-      dd($data);
+      // dd($data);
       Answer::create($data);
       return back();
     }

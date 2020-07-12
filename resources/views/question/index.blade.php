@@ -12,9 +12,9 @@
   </div><!-- /.container-fluid -->
 </section>
 
-<div class="container">
+<div class="card m-2 p-2 elevation-3">
 	@foreach($questions as $question)
-		<div class="row m-2 p-2 bg-white elevation-3" >
+		<div class="row m-2 p-2 bg-white" >
 			<div class="col-md-1" style="text-align: center;">
 				<div class="mt-3">
 					<button class="btn btn-success mb-2"><i class="far fa-thumbs-up"></i></button>
@@ -31,15 +31,15 @@
 				<div class="mt-3">
 					<div class="btn-group mt-4">
 						<a href="/question/{{$question->id}}" class="btn btn-primary">
-							Comment
+							Answer
 						</a>
 						@if ($question->user_id == Auth::id())
 							<a href="/question/{{$question->id}}/edit" class="btn btn-success">
 								Edit
 							</a>
 							<form action="/question/{{$question->id}}" method="POST">
-	        		@csrf
-	        		@method('DELETE')
+		        		@csrf
+		        		@method('DELETE')
 		        		<button type="submit" class="btn btn-danger" > <i class="fas fa-trash"></i> </button>
 		        	</form>
 						@endif

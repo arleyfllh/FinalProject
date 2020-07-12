@@ -17,35 +17,40 @@
 </section>
 
 <div class="container">
-	<div class="row m-2 p-2 bg-white" style="border: 1px solid black;">
-		<div class="col-md-1" style="text-align: center;">
-			<div class="mt-3">
-				<button class="btn btn-success mb-2"><i class="far fa-thumbs-up"></i></button>
-				<button class="btn btn-danger"><i class="far fa-thumbs-down"></i></button>
+	<div class="card">
+		<div class="row m-2 p-2 bg-white">
+			<div class="col-md-1" style="text-align: center;">
+				<div class="mt-3">
+					<button class="btn btn-success mb-2"><i class="far fa-thumbs-up"></i></button>
+					<button class="btn btn-danger"><i class="far fa-thumbs-down"></i></button>
+				</div>
 			</div>
-		</div>
-		<div class="col-md mt-2">
-			<h6> {{$questions->user->name}} </h6>
-			<h4> {{$questions->title}} </h4>
-			<p> {!! $questions->description !!} </p>
-			<div>
-				@foreach($questions->tag as $tag)
-					<button class="btn btn-default btn-sm"> {{$tag->name}} </button>
-				@endforeach
+			<div class="col-md mt-2">
+				<h6> {{$questions->user->name}} </h6>
+				<h4> {{$questions->title}} </h4>
+				<p> {!! $questions->description !!} </p>
+				<div>
+					@foreach($questions->tag as $tag)
+						<button class="btn btn-default btn-sm"> {{$tag->name}} </button>
+					@endforeach
+				</div>
 			</div>
 		</div>
 	</div>
-	@foreach($data as $answer)
-		<div class="m-2 ml-4 p-2 bg-white">
-			{!! $answer->description !!}
-		</div>
-	@endforeach
+	
+
+
+	@include('question.answerq',['question_id'=>$questions->id])
+
+
+
 	<div class="m-4">
 		<form action=" {{route('answer.store')}} " method="POST">
 			@csrf
 			<div class="form-group">
 				<label for="description">Your Answer:</label>
 				<textarea name="description" class="form-control my-editor">{!! old('description', $description ?? '') !!}</textarea>
+				<input type="hidden" name="question_id" value=" {{$questions->id}} ">
 			</div>
 			<button type="submit" class="btn btn-primary">Submit Answer</button>
 		</form>
